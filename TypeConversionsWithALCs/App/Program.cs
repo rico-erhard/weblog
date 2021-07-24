@@ -74,8 +74,8 @@ namespace App
         static void FindLib(this AssemblyLoadContext context)
         => WriteLine($"The {context.Name} ALC has {context.GetLib()?.GetName().ToString() ?? "no Lib assembly"}.");
 
-        static Assembly? GetLib(this AssemblyLoadContext defaultContext)
-        => defaultContext.Assemblies.Where(a => a.FullName?.StartsWith("Lib,") ?? false).FirstOrDefault();
+        static Assembly? GetLib(this AssemblyLoadContext context)
+        => context.Assemblies.Where(a => a.FullName?.StartsWith("Lib,") ?? false).FirstOrDefault();
 
         static object? GetTimeNow(this Assembly lib)
         => lib.GetType("Lib.Time")?.GetRuntimeProperty("Now")?.GetValue(null);
