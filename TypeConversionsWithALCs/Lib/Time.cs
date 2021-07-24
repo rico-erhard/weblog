@@ -4,7 +4,7 @@ namespace Lib
 {
     public class Time : AppLib.Time
     {
-        DateTimeOffset time;
+        readonly DateTimeOffset time;
 
         Time(DateTimeOffset time)
         {
