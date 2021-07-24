@@ -34,10 +34,12 @@ namespace App
             catch (System.InvalidCastException e)
             {
                 WriteLine(e);
+                WriteLine("Note that the types of blueTime and redTime {0}.",
+                    blueTime?.GetType().Equals(redTime) ?? false ? "equal" : "differ");
             }
 
-            // Reflection
-            blueTime?.ToUnixTimeInMilliseconds()?.WriteUnixTime();
+            // Reflection in the extension method below.
+            blueTime?.ToUnixTimeMilliseconds()?.WriteUnixTime();
 
             // Dynamic binding.
             dynamic? dynamicBlueTime = blueTime;
@@ -63,7 +65,7 @@ namespace App
         static void WriteUnixTime(this long time)
         => WriteLine($"UNIX time is {time}ms.");
 
-        static long? ToUnixTimeInMilliseconds(this object? libTime)
+        static long? ToUnixTimeMilliseconds(this object? libTime)
         => (long?)libTime?.GetType()?.GetRuntimeMethod("ToUnixTimeMilliseconds", new Type[0])?.Invoke(libTime, null);
 
         static string LibPath
